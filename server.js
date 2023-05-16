@@ -18,21 +18,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // database
 const db = require("./app/models");
-const Role = db.role;
+
 
 db.sequelize.sync({force: false})
 .then(()=>{
     console.log('yes re-sync done!')
-    //initial();
+    // initial();
 })
 .catch(e=>console.log("Can't syncronize",e));
-// force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync Database with { force: true }');
-//   initial();
-// });
 
-// simple route
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to  application." });
 });
@@ -40,6 +35,7 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/language.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -47,7 +43,23 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
+
+// force: true will drop the table if it already exists
+// db.sequelize.sync({force: true}).then(() => {
+//   console.log('Drop and Resync Database with { force: true }');
+//   initial();
+// });
+// const Role = db.role;
+// const Language=db.language;
 // function initial() {
+//   Language.create({
+//     id:1,
+//     name:"english"
+//   })
+//   Language.create({
+//     id:2,
+//     name:"german"
+//   })
 //   Role.create({
 //     id: 1,
 //     name: "user"
@@ -62,4 +74,4 @@ app.listen(PORT, () => {
 //     id: 3,
 //     name: "admin"
 //   });
-// }
+//  }

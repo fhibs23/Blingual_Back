@@ -8,14 +8,14 @@ verifyToken = (req, res, next) => {
 
   if (!token) {
     return res.status(403).send({
-      message: "No token provided!"
+      message: "Нет токена!"
     });
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({
-        message: "Unauthorized!"
+        message: "Незарегистрированный пользователь!"
       });
     }
     req.userId = decoded.id;
@@ -34,7 +34,7 @@ isAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Admin Role!"
+        message: "Требуется доступ администратора!"
       });
       return;
     });
@@ -52,7 +52,7 @@ isModerator = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Moderator Role!"
+        message: "Требуется доступ модератора!"
       });
     });
   });
@@ -74,7 +74,7 @@ isModeratorOrAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Moderator or Admin Role!"
+        message: "Требуется доступ модератора или администратора!"
       });
     });
   });
