@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
     const Language = sequelize.define("language", {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true
-          },
           name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            get() {
+              const name = this.getDataValue(name);
+              return name
+          },
           }
         });
     return Language;
